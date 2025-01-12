@@ -17,13 +17,15 @@ npm run build
 # Move back to root
 cd ..
 
-# Create staticfiles directory if it doesn't exist
+# Create staticfiles directory with proper permissions
+echo "Creating staticfiles directory..."
 mkdir -p staticfiles
+chmod -R 755 staticfiles
 
 # Run Django migrations
 echo "Running migrations..."
 python manage.py migrate
 
-# Collect static files
+# Collect static files with verbose output
 echo "Collecting static files..."
-python manage.py collectstatic --no-input --clear
+python manage.py collectstatic --no-input --clear -v 2

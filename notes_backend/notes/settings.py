@@ -111,11 +111,13 @@ USE_TZ = True
 # ]
 
 STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')  # Convert to string explicitly
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'notes_frontend', 'dist', 'assets'),
-    os.path.join(BASE_DIR, 'notes_frontend', 'dist')
+    str(BASE_DIR / 'notes_frontend' / 'dist' / 'assets'),
+    str(BASE_DIR / 'notes_frontend' / 'dist')
 ]
+WHITENOISE_ROOT = str(BASE_DIR / 'staticfiles')
+WHITENOISE_USE_FINDERS = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -132,3 +134,30 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000  # 1 year
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'whitenoise': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
