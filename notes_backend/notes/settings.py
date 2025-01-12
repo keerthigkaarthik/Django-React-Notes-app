@@ -29,8 +29,8 @@
 # CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 # CORS_ALLOW_HEADERS = ['*']
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-# CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']
+# ALLOWED_HOSTS = ['*']
+# CSRF_TRUSTED_ORIGINS = ['django-react-notes-app-production-0e6b.up.railway.app']
 
 # CORS_ALLOW_CREDENTIALS = True
 
