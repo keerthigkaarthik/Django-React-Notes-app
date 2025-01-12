@@ -170,7 +170,7 @@ CORS_ALLOW_CREDENTIALS = True
 # Hosts/Domain settings
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.up.railway.app',
+    'https://django-react-notes-app-production-0e6b.up.railway.app/',
 ]
 
 # Application definition
