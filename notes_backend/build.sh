@@ -8,7 +8,7 @@ pip install -r requirements.txt
 
 # Navigate to frontend directory
 echo "Installing and building frontend..."
-cd frontend
+cd notes_frontend
 
 # Install node modules and build
 npm install
