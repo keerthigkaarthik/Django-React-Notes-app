@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -46,7 +47,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'notes.urls'
@@ -102,13 +102,22 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# # Static files (CSS, JavaScript, Images)
+# STATIC_URL = '/assets/'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this for collectstatic
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'notes_frontend/dist/assets',  # Add the assets subdirectory
+#     BASE_DIR / 'notes_frontend/dist'  # Keep this for index.html
+# ]
+
 STATIC_URL = '/assets/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this for collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    BASE_DIR / 'notes_frontend/dist/assets',  # Add the assets subdirectory
-    BASE_DIR / 'notes_frontend/dist'  # Keep this for index.html
+    os.path.join(BASE_DIR, 'notes_frontend', 'dist', 'assets'),
+    os.path.join(BASE_DIR, 'notes_frontend', 'dist')
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
