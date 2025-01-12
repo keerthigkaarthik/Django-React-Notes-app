@@ -2,48 +2,38 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import getCsrfToken from '../utils/getCsrfToken'
 
-const SingleNotePage = () => {  
-    const { id } = useParams() 
+const SingleNotePage = () => {
+    const { id } = useParams()
     const [note, setNote] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
-        getNote()  
-    }, [id])  
+        getNote()
+    }, [id])
 
     const getNote = async () => {
-        let response = await fetch(`/api/notes/${id}`)  
+        let response = await fetch(`/api/notes/${id}`)
         let data = await response.json()
         setNote(data)
     }
 
     const updateNote = async () => {
-
-        if (!note.title) {
-            const defaultTitleNote = {
-                ...note,
-                'title': "No title"
-            }
-    
-            await fetch(`/api/notes/${id}/update`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCsrfToken()
-                },
-                body: JSON.stringify(defaultTitleNote)
-            })
-        } else {
-            await fetch(`/api/notes/${id}/update`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCsrfToken()
-                },
-                body: JSON.stringify(note)
-            })
+        const defaultTitleNote = {
+            ...note,
         }
-        
+
+        if (!defaultTitleNote.title) {
+            defaultTitleNote.title = "No title"
+        }
+
+        await fetch(`/api/notes/${id}/update`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify(defaultTitleNote)
+        })
     }
 
     const deleteNote = async () => {
@@ -54,10 +44,11 @@ const SingleNotePage = () => {
                 'X-CSRFToken': getCsrfToken()
             },
         })
+        navigate('/')
     }
 
     const handleBack = () => {
-        if (!note.body.trim() && !note.title.trim()) {
+        if (!note.body?.trim() && !note.title?.trim()) {
             deleteNote()
         } else {
             updateNote()
@@ -71,8 +62,18 @@ const SingleNotePage = () => {
                 <h3 onClick={() => handleBack()}>&larr;</h3>
                 <button onClick={() => deleteNote()}>Delete</button>
             </div>
-            <textarea className='title-textarea' onChange={(e) => setNote({...note,'title': e.target.value})} value={note?.title} maxLength={30}></textarea> 
-            <textarea onChange={(e) => setNote({...note,'body': e.target.value})} value={note?.body}></textarea>
+            <textarea 
+                className='title-textarea' 
+                onChange={(e) => setNote({...note, title: e.target.value})} 
+                value={note?.title || ''} 
+                placeholder="Untitled Note"
+                maxLength={30}
+            ></textarea>
+            <textarea 
+                onChange={(e) => setNote({...note, body: e.target.value})} 
+                value={note?.body || ''} 
+                placeholder="Start writing here..."
+            ></textarea>
         </div>
     )
 }
