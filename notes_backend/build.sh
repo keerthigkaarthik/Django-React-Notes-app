@@ -29,3 +29,21 @@ python manage.py migrate
 # Collect static files with verbose output
 echo "Collecting static files..."
 python manage.py collectstatic --no-input --clear -v 2
+
+#!/usr/bin/env bash
+
+# ... (previous content remains the same)
+
+# Collect static files with verbose output
+echo "Collecting static files..."
+python manage.py collectstatic --no-input --clear -v 2
+
+# Debug: List contents of directories
+echo "Debugging directory contents:"
+echo "Current directory:"
+pwd
+ls -la
+echo "Staticfiles directory:"
+ls -la staticfiles/
+echo "Frontend dist directory:"
+ls -la notes_frontend/dist/

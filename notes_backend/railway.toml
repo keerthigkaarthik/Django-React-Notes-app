@@ -1,6 +1,6 @@
 [build]
 builder = "./build.sh"
-watchPatterns = ["frontend/**/*", "backend/**/*"]
+watchPatterns = ["frontend/**/*", "backend/**/*", "staticfiles/**/*"]
 
 [deploy]
 startCommand = "gunicorn notes.wsgi:application"

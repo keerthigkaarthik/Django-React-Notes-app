@@ -111,11 +111,12 @@ USE_TZ = True
 # ]
 
 STATIC_URL = '/assets/'
-STATIC_ROOT = str(BASE_DIR / 'staticfiles')  # Convert to string explicitly
+STATIC_ROOT = str(os.path.join(os.getcwd(), 'staticfiles'))
 STATICFILES_DIRS = [
-    str(BASE_DIR / 'notes_frontend' / 'dist' / 'assets'),
-    str(BASE_DIR / 'notes_frontend' / 'dist')
+    str(os.path.join(os.getcwd(), 'notes_frontend', 'dist', 'assets')),
+    str(os.path.join(os.getcwd(), 'notes_frontend', 'dist'))
 ]
+
 WHITENOISE_ROOT = str(BASE_DIR / 'staticfiles')
 WHITENOISE_USE_FINDERS = True
 
