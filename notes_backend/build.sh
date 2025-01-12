@@ -1,49 +1,31 @@
 #!/usr/bin/env bash
-
 echo "Building the project..."
-
 # Install Python dependencies
-echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
-# Navigate to frontend directory
-echo "Installing and building frontend..."
+# Build frontend
 cd notes_frontend
-
-# Install node modules and build
 npm install
 npm run build
-
-# Move back to root
 cd ..
 
-# Create staticfiles directory with proper permissions
-echo "Creating staticfiles directory..."
+# Clear existing staticfiles
+rm -rf staticfiles/*
+
+# Create fresh staticfiles directory
 mkdir -p staticfiles
 chmod -R 755 staticfiles
 
-# Run Django migrations
-echo "Running migrations..."
+# Run migrations
 python manage.py migrate
 
 # Collect static files with verbose output
 echo "Collecting static files..."
-python manage.py collectstatic --no-input --clear -v 2
+python manage.py collectstatic --no-input -v 2
 
-#!/usr/bin/env bash
-
-# ... (previous content remains the same)
-
-# Collect static files with verbose output
-echo "Collecting static files..."
-python manage.py collectstatic --no-input --clear -v 2
-
-# Debug: List contents of directories
-echo "Debugging directory contents:"
-echo "Current directory:"
-pwd
-ls -la
-echo "Staticfiles directory:"
+# Debug: Show directory contents
+echo "Final directory structure:"
+echo "staticfiles directory:"
 ls -la staticfiles/
 echo "Frontend dist directory:"
 ls -la notes_frontend/dist/

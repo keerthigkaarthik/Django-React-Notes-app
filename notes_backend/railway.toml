@@ -1,9 +1,9 @@
 [build]
 builder = "./build.sh"
-watchPatterns = ["frontend/**/*", "backend/**/*", "staticfiles/**/*"]
+watchPatterns = ["notes_frontend/**/*", "**/*.py", "staticfiles/**/*"]
 
 [deploy]
-startCommand = "gunicorn notes.wsgi:application"
+startCommand = "gunicorn notes.wsgi:application --bind 0.0.0.0:$PORT"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 restartPolicyType = "never"

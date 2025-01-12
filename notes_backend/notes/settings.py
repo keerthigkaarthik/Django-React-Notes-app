@@ -111,14 +111,11 @@ USE_TZ = True
 # ]
 
 STATIC_URL = '/assets/'
-STATIC_ROOT = str(os.path.join(os.getcwd(), 'staticfiles'))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    str(os.path.join(os.getcwd(), 'notes_frontend', 'dist', 'assets')),
-    str(os.path.join(os.getcwd(), 'notes_frontend', 'dist'))
+    os.path.join(BASE_DIR, 'notes_frontend', 'dist'),  # For index.html
+    os.path.join(BASE_DIR, 'notes_frontend', 'dist', 'assets'),  # For Vite assets
 ]
-
-WHITENOISE_ROOT = str(BASE_DIR / 'staticfiles')
-WHITENOISE_USE_FINDERS = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
